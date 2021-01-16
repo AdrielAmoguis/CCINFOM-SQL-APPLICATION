@@ -7,3 +7,4 @@
 4. SUN, Benedict
 
 
+This is an example of a git pull.
