@@ -93,7 +93,7 @@ public class courses {
         try{
             Connection conn;
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/enrolldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
-            System.out.println("[degree.viewRecord] Connection Successful");
+            System.out.println("[courses.viewRecord] Connection Successful");
             // Prepare SELECT statement
             PreparedStatement pstmt = conn.prepareStatement("SELECT courseid, coursename, department " +
                                                             "FROM courses " + 
