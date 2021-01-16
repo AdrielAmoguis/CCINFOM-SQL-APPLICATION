@@ -7,4 +7,19 @@
 4. SUN, Benedict
 
 
-This is an example of a git pull.
+### Basics of Git on Ubuntu:
+- Git installation:
+	- ```sudo apt install git -y```
+	- If we get an apt error, we either wait a few minutes or kill the existing apt process.
+- Git clone
+	- This command clones a git repository from Github given a link.
+	- ```git clone LINK```
+- Staging files for commit
+	- ```git add .```
+- Git commit
+	- ```git commit -m "Message Title" -m "Message Body"```
+- Git push
+	- ```git push -u origin master```
+- Git pull
+	- ```git pull```
+
