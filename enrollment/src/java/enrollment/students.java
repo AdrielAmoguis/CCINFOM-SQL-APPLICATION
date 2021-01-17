@@ -72,7 +72,8 @@ public class students {
         } catch (SQLException e) {
             System.out.println(e.getMessage());  
             return 0;
-        }       }
+        }       
+    }
     
    
     public int viewRecord() { 
@@ -100,7 +101,8 @@ public class students {
         } catch (SQLException e) {
             System.out.println(e.getMessage());  
             return 0;
-        }           }
+        }           
+    }
     
     public static void main(String args[]) {
        students s = new students();
