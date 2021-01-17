@@ -9,11 +9,32 @@ public class students {
     
     public students () {};
     
+    
+    public int addRecord()  { 
+        try {
+            Connection conn;     
+            // 2. Connect to your DB
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/enrolldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            System.out.println("Connection Successful");
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO students VALUES (?,?,?)");
+            pstmt.setInt    (1, studentid );
+            pstmt.setString (2, completename);
+            pstmt.setString (3, degreeid);
+            pstmt.executeUpdate();   
+            pstmt.close();
+            conn.close();
+            return 1;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());  
+            return 0;
+        }       
+    }
+    
     public int modRecord()  { 
     try{
             Connection conn;     
             // 2. Connect to your DB
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3310/enrolldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/enrolldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
             // 4. Prepare our INSERT Statement
             PreparedStatement pstmt = conn.prepareStatement("UPDATE students          " +
@@ -36,7 +57,7 @@ public class students {
         try {
             Connection conn;     
             // 2. Connect to your DB
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3310/enrolldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/enrolldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             // 3. Indicate a notice of successful connection
             System.out.println("Connection Successful");
             // 4. Prepare our INSERT Statement
@@ -53,30 +74,12 @@ public class students {
             return 0;
         }       }
     
-    public int addRecord()  { 
-        try {
-            Connection conn;     
-            // 2. Connect to your DB
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3310/enrolldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
-            System.out.println("Connection Successful");
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO students VALUES (?,?,?)");
-            pstmt.setInt    (1, studentid );
-            pstmt.setString (2, completename);
-            pstmt.setString (3, degreeid);
-            pstmt.executeUpdate();   
-            pstmt.close();
-            conn.close();
-            return 1;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());  
-            return 0;
-        }       
-    }
+   
     public int viewRecord() { 
     try {
             Connection conn;     
             // 2. Connect to your DB
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3310/enrolldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/enrolldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
             // 4. Prepare our INSERT Statement
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM students WHERE studentid=?");
@@ -100,7 +103,40 @@ public class students {
         }           }
     
     public static void main(String args[]) {
+       students s = new students();
        
+       //Add Record
+       /*
+       s.studentid = 12345678;
+       s.completename = "Hello World";
+       s.degreeid = "BSIS";
+       s.addRecord();
+       */
+       
+       
+       //Modify Record
+       /*
+       s.degreeid = "BSCS";
+       s.studentid = 12345678;
+       s.modRecord();
+       */
+       
+       
+       //Delete Record
+       /*
+       s.studentid = 12345678;
+       s.delRecord();
+       */
+       
+       
+       //View Record
+       /*
+       s.studentid = 10100001;
+       s.viewRecord();
+       System.out.println("studentid: " + s.studentid);
+       System.out.println("completename: " + s.completename);
+       System.out.println("degreeid: " + s.degreeid);
+       */
     }
 }
 
