@@ -53,7 +53,7 @@
             </p>
             
             <!-- Instantiate Bean -->
-            <jsp:useBean id="delStudentBean" class="enrollment.students" scope="session" />
+            <jsp:useBean id="delStudentBean" class="enrollment.students" scope="request" />
             <%
                 delStudentBean.completename = null;
                 delStudentBean.degreeid = null;

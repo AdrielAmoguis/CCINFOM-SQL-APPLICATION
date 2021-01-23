@@ -73,6 +73,17 @@
                 <center><input type="submit" value="Add New Student Record"/></center>
             </form>
             
+            <!-- Modify Student Record -->
+            <hr />
+            <h3>Modify a Student's Record</h3>
+            <p>Leaving an optional field blank will not modify the student's information for that field.</p>
+            <form id="regularForm" name="ModifyStudentRecord" action="request/modStudent.jsp" method="POST">
+                Student ID (required): <input name="StudentID" type="text" />
+                New Complete Name (optional): <input name="StudentNewName" type="text"/>
+                New Degree ID (optional): <input name="StudentNewDegreeID" type="text"/><br/>
+                <center><input type="submit" value="Modify Student Record"/></center>
+            </form>
+            
             <!-- Delete Student Record -->
             <hr />
             <h3>Delete a Student Record</h3>

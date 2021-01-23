@@ -53,7 +53,7 @@
             </p>
             
             <!-- Instantiate Bean -->
-            <jsp:useBean id="addStudentBean" class="enrollment.students" scope="session" />
+            <jsp:useBean id="addStudentBean" class="enrollment.students" scope="request" />
             <%
                 addStudentBean.studentid = Integer.parseInt(request.getParameter("StudentID"));
                 addStudentBean.completename = request.getParameter("StudentName");

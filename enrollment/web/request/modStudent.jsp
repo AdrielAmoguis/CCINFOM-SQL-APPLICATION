@@ -46,7 +46,7 @@
         
         <!-- CONTENT -->
         <div id="content">
-            <h2>Get Student Information</h2>
+            <h2>Modify Student Information</h2>
             
             <!-- Instantiate Bean -->
             <jsp:useBean id="getStudentBean" class="enrollment.students" scope="request" />
@@ -66,7 +66,7 @@
                 {
                     if(getStudentBean.completename != null) {
             %>
-            <h3>Student Information:</h3>
+            <h3>Old Student Information:</h3>
             <p><strong>Student ID:</strong> <%=getStudentBean.studentid%></p>
             <p><strong>Complete Name:</strong> <%=getStudentBean.completename%>
             <p><strong>Degree ID:</strong> <%=getStudentBean.degreeid%>
@@ -79,6 +79,41 @@
             %>
             <h3 style="text-align: center;">A problem has occurred. Unable to get student data.</h3>
             <%}%>
+            
+            <jsp:useBean id="modStudentBean" class="enrollment.students" scope="request"/>
+            <%
+                if(getStudentBean.completename != null){
+                    modStudentBean.studentid = getStudentBean.studentid;
+                    modStudentBean.completename = request.getParameter("StudentNewName");
+                    modStudentBean.degreeid = request.getParameter("StudentNewDegreeID");
+                    
+                    // Check nulls
+                    if(modStudentBean.completename.isEmpty()) modStudentBean.completename = getStudentBean.completename;
+                    if(modStudentBean.degreeid.isEmpty()) modStudentBean.degreeid = getStudentBean.degreeid;
+                    
+                    // Execute Query
+                    if(modStudentBean.modRecord() != 0)
+                    {
+                        // Sucess
+                        %>
+                            <h3>Student Record Updated.</h3>    
+                            <h3>Updated Student Information:</h3>
+                            <p><strong>Student ID:</strong> <%=modStudentBean.studentid%></p>
+                            <p><strong>Complete Name:</strong> <%=modStudentBean.completename%>
+                            <p><strong>Degree ID:</strong> <%=modStudentBean.degreeid%>
+                        <%
+                    }
+                    else
+                    {
+                        // Failure
+                        %>
+                            <h3>Record Update Failed..</h3>
+                        <%
+                            
+                    }
+                }
+            %>
+            
             
             <br />
             
