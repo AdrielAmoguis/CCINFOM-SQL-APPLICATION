@@ -12,12 +12,16 @@ public class coursedegree {
     // Class Attributes
     public String courseid;
     public String degree;
+    public ArrayList<String> courses;
+    public ArrayList<String> degrees;
     
     // USING DEFAULT CONSTRUCTOR
     public coursedegree() 
     {
         this.courseid = null;
         this.degree = null;
+        this.courses = new ArrayList<String>();
+        this.degrees = new ArrayList<String>();
     }
     
     public int modRecord()
@@ -62,49 +66,6 @@ public class coursedegree {
     
     public int viewRecord()
     {
-//        // Invoke the connection
-//        Connection dbCon;
-//        try
-//        {
-//            dbCon = DriverManager.getConnection(DBInfo.jdbcConnectionString);
-//            System.out.println("[CourseDegree DAO - VIEW] Database Connection Established.");
-//            
-//            // Query using degreeid or degree?
-//            String qryCond;
-//            if(this.courseid != null && this.degree == null)
-//                qryCond = this.courseid;
-//            else if(this.courseid == null && this.degree != null)
-//                qryCond = this.degree;
-//            else
-//            {
-//                System.out.println("[CourseDegree DAO - VIEW] Ambiguous View Request:\nOne of the field attributes must be null.\nExample: " +
-//                        "if courseid == null, then this DAO will query for the courseid ");
-//                return 1;
-//            }
-//            
-//            // Prepare SQL statement
-//            PreparedStatement sqlStatement = dbCon.prepareStatement("SELECT courseid, degree FROM coursedegree WHERE courseid = ?");
-//            sqlStatement.setString(1, this.courseid);
-//            
-//            // Execute statement and get results
-//            ResultSet results = sqlStatement.executeQuery();
-//            
-//            // Parse Results
-//            while(results.next())
-//            {
-//                this.degree.add(results.getString("degree"));
-//            }
-//            
-//            // Close the connection
-//            results.close();
-//            sqlStatement.close();
-//            dbCon.close();
-//        }
-//        catch (SQLException ex)
-//        {
-//            System.out.printf("[CourseDegree DAO - VIEW] Exception Occurred Executing SQL:\n%s", ex.getMessage());
-//            return 1;
-//        }
         
         return 0;
     }

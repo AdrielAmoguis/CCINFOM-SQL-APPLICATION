@@ -1,11 +1,26 @@
 ## CCINFOM SQL APPLICATION
 
-### Written && Developed By::
+### Written && Developed By:
 1. AMOGUIIS, Adriel Isaiah V.
 2. MANUEL, Sarah
 3. SO, Tiffany
 4. SUN, Benedict
 
+### Development Tracker
+- [In-Progress] Data Access Objects (DAOs)
+	- [Complete] Students
+	- [Complete] Courses
+	- [Complete] Degree
+	- [In-Progress] CourseDegree
+	- [] Drop
+	- [] Enroll
+	- [] Enrollment
+- [In-Progress] Java Server Pages (JSP) Modules
+	- [Complete] Student Management Module
+	- [Complete] Course Management Module
+	- [] Enrollment Module
+	- [] Dropping Module
+	- [] Report Module
 
 ### Basics of Git on Ubuntu:
 - Git installation:
