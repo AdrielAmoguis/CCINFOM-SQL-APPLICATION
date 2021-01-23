@@ -35,8 +35,8 @@
             <div id="nav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li class="navSelected"><a href="#">Student Management</a></li>
-                    <li><a href="coursemaintenance.jsp">Course Management</a></li>
+                    <li><a href="studentmaintenance.jsp">Student Management</a></li>
+                    <li class="navSelected"><a href="#">Course Management</a></li>
                     <li><a href="enroll.jsp">Enroll</a></li>
                     <li><a href="drop.jsp">Drop</a></li>
                     <li><a href="report.jsp">Report</a></li>
@@ -46,47 +46,47 @@
         
         <!-- CONTENT -->
         <div id="content">
-            <h2>STUDENT MANAGEMENT</h2>
+            <h2>COURSE MANAGEMENT</h2>
             
             <p style="text-align: center;">
-                This module facilitates the management and maintenance of students.
+                This module facilitates the management and maintenance of available courses.
             </p>
             
-            <!-- Query Student Record -->
+            <!-- Query Course Record -->
             <hr />
-            <h3>Get Student Record by ID</h3>
-            <form id="regularForm" name="GetStudentRecord" action="request/getStudent.jsp" method="GET">
-                Student ID: <input name="StudentID" type="text" /><br/>
-                <center><input type="submit" value="Search for Student"/></center>
+            <h3>Get Course Record by ID</h3>
+            <form id="regularForm" name="GetCourseRecord" action="request/getCourse.jsp" method="GET">
+                Course ID: <input name="CourseID" type="text" /><br/>
+                <center><input type="submit" value="Search for Course"/></center>
             </form>
             
             <!-- Add a Student Record -->
             <hr />
-            <h3>Add a Student Record</h3>
-            <form id="regularForm" name="AddStudentRecord" action="request/addStudent.jsp" method="POST">
-                Student ID: <input name="StudentID" type="text" />
-                Complete Name: <input name="StudentName" type="text" />
-                Degree ID: <input name="StudentDegree" type="text" /><br />
-                <center><input type="submit" value="Add New Student Record"/></center>
+            <h3>Add a Course Record</h3>
+            <form id="regularForm" name="AddCourseRecord" action="request/addCourse.jsp" method="POST">
+                Course ID: <input name="CourseID" type="text" />
+                Course Name: <input name="CourseName" type="text" />
+                Course Department: <input name="CourseDepartment" type="text" /><br />
+                <center><input type="submit" value="Add New Course Record"/></center>
             </form>
             
             <!-- Modify Student Record -->
             <hr />
-            <h3>Modify a Student's Record</h3>
-            <p>Leaving an optional field blank will not modify the student's information for that field.</p>
-            <form id="regularForm" name="ModifyStudentRecord" action="request/modStudent.jsp" method="POST">
-                Student ID (required): <input name="StudentID" type="text" />
-                New Complete Name (optional): <input name="StudentNewName" type="text"/>
-                New Degree ID (optional): <input name="StudentNewDegreeID" type="text"/><br/>
-                <center><input type="submit" value="Modify Student Record"/></center>
+            <h3>Modify a Course's Record</h3>
+            <p>Leaving an optional field blank will not modify the course's information for that field.</p>
+            <form id="regularForm" name="ModifyCourseRecord" action="request/modCourse.jsp" method="POST">
+                Course ID (required): <input name="CourseID" type="text" />
+                New Course Name (optional): <input name="CourseNewName" type="text"/>
+                New Department (optional): <input name="CourseNewDepartment" type="text"/><br/>
+                <center><input type="submit" value="Modify Course Record"/></center>
             </form>
             
             <!-- Delete Student Record -->
             <hr />
-            <h3>Delete a Student Record</h3>
-            <form id="regularForm" name="DeleteStudentRecord" action="request/delStudent.jsp" method="POST">
-                Student ID: <input name="StudentID" type=""text /><br/>
-                <center><input type="submit" value="Delete Student Record"/></center>
+            <h3>Delete a Course Record</h3>
+            <form id="regularForm" name="DeleteCourseRecord" action="request/delCourse.jsp" method="POST">
+                Course ID: <input name="CourseID" type="text" /><br/>
+                <center><input type="submit" value="Delete Course Record"/></center>
             </form>
             
             <hr />
