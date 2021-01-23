@@ -68,9 +68,22 @@
     
     /* FONTS */
     font-family: Arial, Helvetica, sans-serif;
+    
+    text-align: center;
 }
 
 #content h2
 {
     text-align: center;
+}
+
+form
+{
+    display: inline-block;
+}
+
+input
+{
+    display: block;
+    margin: 5px;
 }

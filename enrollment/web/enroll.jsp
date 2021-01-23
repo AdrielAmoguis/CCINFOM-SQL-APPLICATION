@@ -7,9 +7,13 @@
         4. SUN, BENEDICT
     CCINFOM S15
 -->
-<!DOCTYPE html>
+<!-- JSP Imports -->
+<%@page import="java.sql.*, java.util.*, enrollment.*" %>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="assets/styles.css" />
         <title>The Better Enrollment System</title>
         <meta charset="UTF-8">
@@ -29,10 +33,10 @@
             <!-- Navigation Bar -->
             <div id="nav">
                 <ul>
-                    <li class="navSelected"><a href="#">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="studentmaintenance.jsp">Student Management</a></li>
                     <li><a href="coursemaintenance.jsp">Course Management</a></li>
-                    <li><a href="enroll.jsp">Enroll</a></li>
+                    <li class="navSelected"><a href="#">Enroll</a></li>
                     <li><a href="drop.jsp">Drop</a></li>
                     <li><a href="report.jsp">Report</a></li>
                 </ul>
@@ -41,11 +45,13 @@
         
         <!-- CONTENT -->
         <div id="content">
-            <h2>HOME</h2>
+            <h2>Enrollment</h2>
             
             <p style="text-align: center;">
-                Navigate to a page to execute an operation.
+                This module facilitates student enrollment.
             </p>
+            
+            
             
             <h3 style="text-align: center">Program Authors:</h3>
             <p style="text-align: center;">
