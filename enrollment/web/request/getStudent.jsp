@@ -51,34 +51,54 @@
             <!-- Instantiate Bean -->
             <jsp:useBean id="getStudentBean" class="enrollment.students" scope="request" />
             <%
-                getStudentBean.completename = null;
-                getStudentBean.degreeid = null;
-                getStudentBean.studentid = 0;
-                
-                if(request.getParameter("StudentID") != null)
-                {
-                    // Query by ID
-                    getStudentBean.studentid = Integer.parseInt(request.getParameter("StudentID"));
-                }
-                
-                // Execute Query
-                if(getStudentBean.viewRecord() != 0)
-                {
-                    if(getStudentBean.completename != null) {
+              boolean valid = false;
+              try
+              {
+                  getStudentBean.studentid = Integer.parseInt(request.getParameter("StudentID"));
+                  valid = true;
+              }
+              catch(Exception ex)
+              {
+                  System.out.println(ex.getMessage());
+              }
+              
+              if(valid)
+              {
+                  // Do query
+                  if(getStudentBean.viewRecord() != 0)
+                  {
+                      // Success
+                      if(getStudentBean.completename != null && !getStudentBean.completename.isEmpty())
+                      {
+                      %>
+                      <h3>Student Information:</h3>
+                      <p><strong>Student ID:</strong> <%=getStudentBean.studentid%>
+                      <p><strong>Student Name:</strong> <%=getStudentBean.completename%>
+                      <p><strong>Student Degree ID: </strong> <%=getStudentBean.degreeid%>
+                      <%
+                      }
+                      else
+                      {
+                        %>
+                        <h3>Student Record Not Found.</h3>
+                        <%
+                      }
+                  }
+                  else
+                  {
+                      // Failure
+                      %>
+                      <h3>An error has occurred. Please try again.</h3>
+                      <%
+                  }
+              }
+              else
+              {
+                %>
+                <h3>Your input is invalid. Please try again.</h3>
+                <%
+              }
             %>
-            <h3>Student Information:</h3>
-            <p><strong>Student ID:</strong> <%=getStudentBean.studentid%></p>
-            <p><strong>Complete Name:</strong> <%=getStudentBean.completename%>
-            <p><strong>Degree ID:</strong> <%=getStudentBean.degreeid%>
-            <%
-                    } else {
-                        %> <h3 style="text-align: center;">Student record does not exist.</h3> <%
-                    }
-                } else
-                {   
-            %>
-            <h3 style="text-align: center;">A problem has occurred. Unable to get student data.</h3>
-            <%}%>
             
             <br />
             

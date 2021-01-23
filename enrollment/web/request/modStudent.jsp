@@ -50,17 +50,23 @@
             
             <!-- Instantiate Bean -->
             <jsp:useBean id="getStudentBean" class="enrollment.students" scope="request" />
-            <%
-                getStudentBean.completename = null;
-                getStudentBean.degreeid = null;
-                getStudentBean.studentid = 0;
-                
-                if(request.getParameter("StudentID") != null)
+            <%  
+                boolean valid = false;
+                if(request.getParameter("StudentID") != null && !request.getParameter("StudentID").isEmpty())
                 {
                     // Query by ID
-                    getStudentBean.studentid = Integer.parseInt(request.getParameter("StudentID"));
+                    try
+                    {
+                        getStudentBean.studentid = Integer.parseInt(request.getParameter("StudentID"));
+                        valid = true;
+                    }
+                    catch(Exception ex)
+                    {
+                        System.out.println(ex.getMessage());
+                    }
                 }
                 
+                if(valid) {
                 // Execute Query
                 if(getStudentBean.viewRecord() != 0)
                 {
@@ -78,11 +84,19 @@
                 {   
             %>
             <h3 style="text-align: center;">A problem has occurred. Unable to get student data.</h3>
-            <%}%>
+            <%} }
+            else
+            {
+                // Invalid input
+                %>
+                <h3>The student ID provided is invalid. Please try again.</h3>
+                <%
+            }  
+            %>
             
             <jsp:useBean id="modStudentBean" class="enrollment.students" scope="request"/>
             <%
-                if(getStudentBean.completename != null){
+                if(getStudentBean.completename != null && valid){
                     modStudentBean.studentid = getStudentBean.studentid;
                     modStudentBean.completename = request.getParameter("StudentNewName");
                     modStudentBean.degreeid = request.getParameter("StudentNewDegreeID");
@@ -96,6 +110,7 @@
                     {
                         // Sucess
                         %>
+                            <hr/>    
                             <h3>Student Record Updated.</h3>    
                             <h3>Updated Student Information:</h3>
                             <p><strong>Student ID:</strong> <%=modStudentBean.studentid%></p>

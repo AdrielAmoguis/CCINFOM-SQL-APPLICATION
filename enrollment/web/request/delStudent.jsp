@@ -55,9 +55,20 @@
             <!-- Instantiate Bean -->
             <jsp:useBean id="delStudentBean" class="enrollment.students" scope="request" />
             <%
-                delStudentBean.completename = null;
-                delStudentBean.degreeid = null;
-                delStudentBean.studentid = Integer.parseInt(request.getParameter("StudentID"));
+                boolean valid = false;
+                try
+                {
+                    delStudentBean.completename = null;
+                    delStudentBean.degreeid = null;
+                    delStudentBean.studentid = Integer.parseInt(request.getParameter("StudentID"));
+                    valid = true;
+                }
+                catch(Exception ex)
+                {
+                    System.out.println(ex.getMessage());
+                }
+                
+                if(valid) {
                 
                 // Check if record exists
                 delStudentBean.viewRecord();
@@ -71,7 +82,15 @@
             <h3 style="text-align: center;">Student Record (ID <%= delStudentBean.studentid %>) was deleted successfully.</h3>
             <% } else { %>
             <h3 style="text-align: center;">A problem has occurred. Delete Record unsuccessful.</h3>
-            <% } %>
+            <% } }
+            else
+            {
+                // Invalid inputs
+                %>
+                <h3>Your input is invalid. Please try again.</h3>
+                <%
+            }
+            %>
             
             <br />
             

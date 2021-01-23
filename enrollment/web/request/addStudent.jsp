@@ -55,9 +55,19 @@
             <!-- Instantiate Bean -->
             <jsp:useBean id="addStudentBean" class="enrollment.students" scope="request" />
             <%
-                addStudentBean.studentid = Integer.parseInt(request.getParameter("StudentID"));
-                addStudentBean.completename = request.getParameter("StudentName");
-                addStudentBean.degreeid = request.getParameter("StudentDegree");
+                boolean valid = false;
+                try
+                {
+                    addStudentBean.studentid = Integer.parseInt(request.getParameter("StudentID"));
+                    addStudentBean.completename = request.getParameter("StudentName");
+                    addStudentBean.degreeid = request.getParameter("StudentDegree");
+                    valid = true;
+                }
+                catch(Exception ex)
+                {
+                    System.out.println(ex.getMessage());
+                }
+                if(valid){
             %>
             
             <!-- Execute Query -->
@@ -70,7 +80,15 @@
             
             <% } else { %>
             <h3 style="text-align: center;">A problem has occurred. Add New Record unsuccessful.</h3>
-            <% } %>
+            <% } } 
+            else
+            {
+                // Invalid input
+               %>
+               <h3>One or more of your inputs were invalid. Please try again.</h3>
+               <%
+            }
+            %>
             
             <br />
             
