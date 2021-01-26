@@ -9,7 +9,11 @@ public class courses {
     public String department;
     
     // Constructor
-    public courses () {};
+    public courses () {
+        courseid = null;
+        coursename = null;
+        department = null;
+    };
     
     // Add record with values [courseid, coursename, department]
     public int addRecord()  {

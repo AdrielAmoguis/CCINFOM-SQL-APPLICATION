@@ -127,7 +127,7 @@ public class coursedegree {
             System.out.println("[CourseDegree DAO - VIEW] Database Connection Established.");
             
             // Prepare SQL statement
-            PreparedStatement sqlStatement = dbCon.prepareCall("SELECT * FROM coursedegree WHERE courseid = ? AND degreeid = ?");
+            PreparedStatement sqlStatement = dbCon.prepareCall("SELECT courseid, degree FROM coursedegree WHERE courseid = ? AND degreeid = ?");
             sqlStatement.setString(1, this.courseid);
             sqlStatement.setString(2, this.degree);
             
