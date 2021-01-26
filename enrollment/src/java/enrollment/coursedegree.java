@@ -15,6 +15,9 @@ public class coursedegree {
     public ArrayList<String> courses;
     public ArrayList<String> degrees;
     
+    public String newCourseId;
+    public String newDegree;
+    
     // USING DEFAULT CONSTRUCTOR
     public coursedegree() 
     {
@@ -22,10 +25,39 @@ public class coursedegree {
         this.degree = null;
         this.courses = new ArrayList<String>();
         this.degrees = new ArrayList<String>();
+        this.newCourseId = null;
+        this.newDegree = null;
     }
     
     public int modRecord()
     {
+        // Invoke the connection
+        Connection dbCon;
+        try
+        {
+            dbCon = DriverManager.getConnection(DBInfo.jdbcConnectionString);
+            System.out.println("[CourseDegree DAO - MOD] Database Connection Established.");
+            
+            // Prepare SQL statement
+            PreparedStatement sqlStatement = dbCon.prepareStatement("UPDATE coursedegree SET courseid = ?, degree = ? WHERE courseid = ? AND degree = ?");
+            sqlStatement.setString(1, this.newCourseId);
+            sqlStatement.setString(2, this.newDegree);
+            sqlStatement.setString(1, this.courseid);
+            sqlStatement.setString(2, this.degree);
+            
+            // Execute statement and get results
+            sqlStatement.executeUpdate();
+            
+            // Close the connection
+            sqlStatement.close();
+            dbCon.close();
+        }
+        catch (SQLException ex)
+        {
+            System.out.printf("[CourseDegree DAO - MOD] Exception Occurred Executing SQL:\n%s", ex.getMessage());
+            return 1;
+        }
+        
         return 0;
     }
     
@@ -66,7 +98,7 @@ public class coursedegree {
         try
         {
             dbCon = DriverManager.getConnection(DBInfo.jdbcConnectionString);
-            System.out.println("[CourseDegree DAO - VIEW] Database Connection Established.");
+            System.out.println("[CourseDegree DAO - ADD] Database Connection Established.");
             
             // Prepare SQL statement
             PreparedStatement sqlStatement = dbCon.prepareStatement("INSERT INTO coursedegree (courseid, degree) VALUES (?,?)");
