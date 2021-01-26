@@ -130,6 +130,12 @@ public class enrollment {
         return 1; 
     }
     
+    @Override
+    public boolean equals(Object obj)
+    {
+        enrollment em = (enrollment) obj;
+        return em.courseid.equals(this.courseid) && em.studentid == this.studentid && em.schoolyear == this.schoolyear && em.term == this.term;
+    }
     
     public static void main(String args[]) {
        

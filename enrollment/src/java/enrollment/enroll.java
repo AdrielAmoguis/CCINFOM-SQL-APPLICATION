@@ -4,20 +4,24 @@ import java.util.*;
 
 public class enroll {
 
-    students                        Student         = new students();
-    int                             cur_term        = 0;
-    int                             sYear           = 0;
+    public students                 Student         = new students();
+    public int                      cur_term        = 0;
+    public int                      sYear           = 0;
     public ArrayList<enrollment>    EnrollmentList  = new ArrayList<> ();
     public ArrayList<coursedegree>  CourseList      = new ArrayList<> ();
+    public boolean loggedin;
  
     // Note: Loading will be done after student logs in
     public enroll() // perform all the necessary data loading from DB
     {
-      
+        loggedin = false;
     }                                 
     
     public int clearEnrollment ()   
-    {   return 0;   }   // clears enrollment data of the student 
+    {   
+        this.EnrollmentList.clear();
+        return 0;   
+    }   // clears enrollment data of the student 
     
     
     // Load valid courses into the course list
@@ -29,10 +33,10 @@ public class enroll {
         try
         {
             dbCon = DriverManager.getConnection(DBInfo.jdbcConnectionString);
-            System.out.println("[CourseDegree DAO - VIEW] Database Connection Established.");
+            System.out.println("[Enroll TAO - LOAD] Database Connection Established.");
             
             // Obtain all records where degreeid == studentdegree
-            PreparedStatement sqlStatement = dbCon.prepareCall("SELECT courseid, degree FROM coursedegree WHERE degreeid = ?");
+            PreparedStatement sqlStatement = dbCon.prepareCall("SELECT courseid, degree FROM coursedegree WHERE degree = ?");
             sqlStatement.setString(1, studentdegree);
             
             ResultSet rs = sqlStatement.executeQuery();
@@ -67,9 +71,20 @@ public class enroll {
         Student.viewRecord();
         this.cur_term = cur_term;
         this.sYear = sYear;
-        
+        this.loggedin = true;
     }
     public int confirmEnrollment()  
     {   return 0;   }   // saves enrollment data into the Database
     
+    
+    public boolean isEnrolled(String courseid)
+    {
+        enrollment em = new enrollment();
+        em.courseid = new String(courseid);
+        em.studentid = this.Student.studentid;
+        em.term = this.cur_term;
+        em.schoolyear = this.sYear;
+        
+        return this.EnrollmentList.contains(em);
+    }
 }

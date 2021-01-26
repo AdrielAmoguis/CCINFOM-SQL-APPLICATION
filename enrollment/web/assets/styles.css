@@ -79,11 +79,20 @@
 
 form
 {
-    display: inline-block;
+    display: block;
 }
 
 input
 {
     display: block;
     margin: 5px;
+}
+
+table, th, td
+{
+    text-align: center;
+    align-content: center;
+    border: 1px solid black;
+    width: 50%;
+    padding: 5px;
 }
