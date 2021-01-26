@@ -11,14 +11,14 @@
 	- [Complete] Students
 	- [Complete] Courses
 	- [Complete] Degree
-	- [In-Progress] CourseDegree
-	- [] Drop
-	- [] Enroll
-	- [] Enrollment
+	- [For Review] CourseDegree
+	- [For Review] Drop
+	- [For Review] Enrollment
+	- [For Review] Enroll
 - [In-Progress] Java Server Pages (JSP) Modules
 	- [Complete] Student Management Module
 	- [Complete] Course Management Module
-	- [] Enrollment Module
+	- [In-Progress] Enroll Module
 	- [] Dropping Module
 	- [] Report Module
 
