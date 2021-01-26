@@ -86,7 +86,7 @@ public class students {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM students WHERE studentid=?");
             pstmt.setInt    (1, studentid );
             // 6. Execute the SQL Statement
-            ResultSet rs = pstmt.executeQuery();   
+            ResultSet rs = pstmt.executeQuery();
             
             // 7. Get the results
             while (rs.next()) {
