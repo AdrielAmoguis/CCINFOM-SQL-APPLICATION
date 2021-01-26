@@ -61,13 +61,83 @@ public class coursedegree {
     
     public int addRecord()
     {
-        return 0;
+        // Invoke the connection
+        Connection dbCon;
+        try
+        {
+            dbCon = DriverManager.getConnection(DBInfo.jdbcConnectionString);
+            System.out.println("[CourseDegree DAO - VIEW] Database Connection Established.");
+            
+            // Prepare SQL statement
+            PreparedStatement sqlStatement = dbCon.prepareStatement("INSERT INTO coursedegree (courseid, degree) VALUES (?,?)");
+            sqlStatement.setString(1, this.courseid);
+            sqlStatement.setString(2, this.degree);
+            
+            // Execute statement
+            sqlStatement.executeUpdate();
+            
+            // Close the connection
+            sqlStatement.close();
+            dbCon.close();
+        }
+        catch (SQLException ex)
+        {
+            System.out.printf("[CourseDegree DAO - ADD] Exception Occurred Executing SQL:\n%s", ex.getMessage());
+            return 0;
+        }
+        
+        return 1;
     }
     
     public int viewRecord()
     {
+        // Invoke the connection
+        Connection dbCon;
+        try
+        {
+            dbCon = DriverManager.getConnection(DBInfo.jdbcConnectionString);
+            System.out.println("[CourseDegree DAO - VIEW] Database Connection Established.");
+            
+            // Prepare SQL statement
+            PreparedStatement sqlStatement = null;
+            
+            // Case 1: Degree is null
+            if(this.degree == null)
+            {
+                // Get all records based on courseid
+                sqlStatement = dbCon.prepareStatement("SELECT courseid, degree FROM coursedegree WHERE courseid = ?");
+                sqlStatement.setString(1, this.courseid);
+            }
+            else
+            {
+                // Get all records based on degree
+                sqlStatement = dbCon.prepareStatement("SELECT courseid, degree FROM coursedegree WHERE degree = ?");
+                sqlStatement.setString(1, this.degree);
+            }
+            
+            // Execute statement and get results
+            ResultSet rs = sqlStatement.executeQuery();
+            
+            // Read the results
+            while(rs.next())
+            {
+                if(this.degree == null)
+                    this.degrees.add(rs.getString("degree"));
+                else
+                    this.courses.add(rs.getString("courseid"));
+            }
+            
+            // Close the connection
+            sqlStatement.close();
+            dbCon.close();
+        }
+        catch (SQLException ex)
+        {
+            System.out.printf("[CourseDegree DAO - VIEW] Exception Occurred Executing SQL:\n%s", ex.getMessage());
+            return 0;
+        }
         
-        return 0;
+        return 1;
     }
     
     public static void main(String args[]) {
@@ -83,6 +153,23 @@ public class coursedegree {
 //        
 //        // MODIFY RECORDS
 //        cd = new coursedegree();
+
+          // View Record
+//          coursedegree cd = new coursedegree();
+//          cd.courseid = "CCPROG1";
+//          cd.viewRecord();
+//          for(String degree : cd.degrees)
+//          {
+//              System.out.println(degree);
+//          }
+//          
+//          cd = new coursedegree();
+//          cd.degree = "BSCS";
+//          cd.viewRecord();
+//          for(String course : cd.courses)
+//          {
+//              System.out.println(course);
+//          }
 //        
     }
 }
