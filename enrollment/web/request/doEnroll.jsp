@@ -51,6 +51,9 @@
             <p style="text-align: center;">
                 This module facilitates student enrollment.
             </p>
+           
+            <!-- Load student data -->
+            <jsp:useBean id="enrollBean" class="enrollment.enroll" scope="request" />
             
             <hr />
             <h3>Enroll</h3>

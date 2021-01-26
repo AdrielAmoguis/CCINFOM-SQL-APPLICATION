@@ -12,8 +12,6 @@ public class coursedegree {
     // Class Attributes
     public String courseid;
     public String degree;
-    public ArrayList<String> courses;
-    public ArrayList<String> degrees;
     
     public String newCourseId;
     public String newDegree;
@@ -23,8 +21,6 @@ public class coursedegree {
     {
         this.courseid = null;
         this.degree = null;
-        this.courses = new ArrayList<String>();
-        this.degrees = new ArrayList<String>();
         this.newCourseId = null;
         this.newDegree = null;
     }
@@ -131,21 +127,10 @@ public class coursedegree {
             System.out.println("[CourseDegree DAO - VIEW] Database Connection Established.");
             
             // Prepare SQL statement
-            PreparedStatement sqlStatement = null;
+            PreparedStatement sqlStatement = dbCon.prepareCall("SELECT * FROM coursedegree WHERE courseid = ? AND degreeid = ?");
+            sqlStatement.setString(1, this.courseid);
+            sqlStatement.setString(2, this.degree);
             
-            // Case 1: Degree is null
-            if(this.degree == null)
-            {
-                // Get all records based on courseid
-                sqlStatement = dbCon.prepareStatement("SELECT courseid, degree FROM coursedegree WHERE courseid = ?");
-                sqlStatement.setString(1, this.courseid);
-            }
-            else
-            {
-                // Get all records based on degree
-                sqlStatement = dbCon.prepareStatement("SELECT courseid, degree FROM coursedegree WHERE degree = ?");
-                sqlStatement.setString(1, this.degree);
-            }
             
             // Execute statement and get results
             ResultSet rs = sqlStatement.executeQuery();
@@ -153,13 +138,12 @@ public class coursedegree {
             // Read the results
             while(rs.next())
             {
-                if(this.degree == null)
-                    this.degrees.add(rs.getString("degree"));
-                else
-                    this.courses.add(rs.getString("courseid"));
+                this.courseid = rs.getString("courseid");
+                this.degree = rs.getString("degree");
             }
             
             // Close the connection
+            rs.close();
             sqlStatement.close();
             dbCon.close();
         }
