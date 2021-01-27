@@ -35,8 +35,17 @@ public class enroll {
             dbCon = DriverManager.getConnection(DBInfo.jdbcConnectionString);
             System.out.println("[Enroll TAO - LOAD] Database Connection Established.");
             
-            // Obtain all records where degreeid == studentdegree
-            PreparedStatement sqlStatement = dbCon.prepareCall("SELECT courseid, degree FROM coursedegree WHERE degree = ?");
+            // Obtain all course|degree records where degreeid == studentdegree
+            //                          and studentid, courseid, term, schoolyear not in enrollment
+            PreparedStatement sqlStatement = dbCon.prepareCall("SELECT courseid, degree " + 
+                                                               "FROM coursedegree " +
+                                                               "WHERE degree = ?" + 
+                                                               "AND courseid NOT IN ( SELECT courseid " +
+                                                                                 "FROM enrollment " + 
+                                                                                 "WHERE studentid = ? " + 
+                                                                                 "AND term = ? " + 
+                                                                                 "AND schoolyear = ? )");
+                                                                                 
             sqlStatement.setString(1, studentdegree);
             
             ResultSet rs = sqlStatement.executeQuery();
