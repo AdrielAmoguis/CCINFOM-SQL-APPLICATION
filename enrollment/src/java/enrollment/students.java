@@ -55,6 +55,11 @@ public class students {
     
     public int delRecord()  { 
         try {
+            // Delete instances in enrollment
+            enrollment em = new enrollment();
+            em.studentid = this.studentid;
+            if(em.delStudent() == 0) return 0;
+            
             Connection conn;     
             // 2. Connect to your DB
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/enrolldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");

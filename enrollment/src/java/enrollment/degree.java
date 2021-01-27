@@ -68,6 +68,11 @@ public class degree {
     // Delete record. Access using PK degreeid
     public int delRecord() {
         try{
+            // Delete all instances from coursedegree
+            coursedegree cd = new coursedegree();
+            cd.degree = this.degreeid;
+            if(cd.delDegree() == 0) return 0;
+            
             // 1. Instantiate Connection object
             Connection conn;
             // 2. Establish connection to DB

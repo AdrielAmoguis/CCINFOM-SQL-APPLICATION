@@ -11,6 +11,7 @@
 <%@page import="java.sql.*, java.util.*" %>
 <%@page import="enrollment.coursedegree" %>
 <%@page import="enrollment.enroll" %>
+<%@page import="enrollment.courses" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
@@ -90,9 +91,12 @@
                         <%
                         for(enrollment.enrollment em : enrollBean.EnrollmentList)
                         {
+                            courses cs = new courses();
+                            cs.courseid = em.courseid;
+                            cs.viewRecord();
                             %>
                             <tr>
-                                <td><%=em.courseid%></td>
+                                <td><strong><%=em.courseid%></strong> - <%=cs.coursename%> <br/>(<%=cs.department%>)</td>
                             </tr>
                             <%
                         }
@@ -101,10 +105,19 @@
                         <form id="regularForm" name="removeCourse" method ="POST" action="removeFromEnrollment.jsp">
                             <center>Select CourseID to remove: <input name="removeCourseID" type="text"/><br /></center>
                             <center><input type="submit" value="Remove Course"/></center>
-                        </form>
+                        </form><br/>
                         <form id="regularForm" name="ClearEnrollment" action="clearEnrollment.jsp" method="POST">
                             <center><input type="submit" value="Clear Enrollment List"/></center>
                         </form>
+                        <form id="regularForm" name="ConfirmEnrollment" action="confirmEnrollment.jsp" method="POST">
+                            <center><input type="submit" value="Confirm Enrollment"/></center>
+                        </form><br/>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <p>Your enrollment cart is empty.</p>
                         <%
                     }
                     

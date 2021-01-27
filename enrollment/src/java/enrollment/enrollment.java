@@ -49,6 +49,48 @@ public class enrollment {
         return 1; 
     }
     
+    public int delStudent()
+    {
+        try
+        {
+            Connection dbCon = DriverManager.getConnection(DBInfo.jdbcConnectionString);
+            PreparedStatement sqlStatement = dbCon.prepareStatement("DELETE FROM enrollment WHERE studentid = ?");
+            sqlStatement.setInt(1, this.studentid);
+            
+            sqlStatement.executeUpdate();
+           
+            sqlStatement.close();
+            dbCon.close();
+        }
+        catch(SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+            return 0;
+        }
+        return 1; 
+    }
+    
+    public int delCourse()
+    {
+        try
+        {
+            Connection dbCon = DriverManager.getConnection(DBInfo.jdbcConnectionString);
+            PreparedStatement sqlStatement = dbCon.prepareStatement("DELETE FROM enrollment WHERE courseid = ?");
+            sqlStatement.setString(1, this.courseid);
+            
+            sqlStatement.executeUpdate();
+           
+            sqlStatement.close();
+            dbCon.close();
+        }
+        catch(SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+            return 0;
+        }
+        return 1; 
+    }
+        
     public int delRecord()  
     { 
         try

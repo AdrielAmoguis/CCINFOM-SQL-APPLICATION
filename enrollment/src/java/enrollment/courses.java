@@ -70,6 +70,15 @@ public class courses {
     // Delete record. Access using PK courseid.
     public int delRecord()  {
         try{
+            // Delete all instance of this course from enrollment and coursedegree
+            enrollment em = new enrollment();
+            em.courseid = this.courseid;
+            if(em.delCourse() == 0) return 0;
+            
+            coursedegree cd = new coursedegree();
+            cd.courseid = this.courseid;
+            if(cd.delCourse() == 0) return 0;
+            
             Connection conn;
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/enrolldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("[courses.delRecord] Connection Successful");

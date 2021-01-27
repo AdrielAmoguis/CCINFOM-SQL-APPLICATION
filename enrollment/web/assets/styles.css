@@ -79,7 +79,7 @@
 
 form
 {
-    display: block;
+    display: inline-block;
 }
 
 input

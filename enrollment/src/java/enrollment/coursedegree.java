@@ -81,10 +81,68 @@ public class coursedegree {
         catch (SQLException ex)
         {
             System.out.printf("[CourseDegree DAO - DELETE] Exception Occurred Executing SQL:\n%s", ex.getMessage());
-            return 1;
+            return 0;
         }
         
-        return 0;
+        return 1;
+    }
+    
+    public int delCourse()
+    {
+        // Invoke the connection
+        Connection dbCon;
+        try
+        {
+            dbCon = DriverManager.getConnection(DBInfo.jdbcConnectionString);
+            System.out.println("[CourseDegree DAO - DELETE] Database Connection Established.");
+            
+            // Prepare SQL statement
+            PreparedStatement sqlStatement = dbCon.prepareStatement("DELETE FROM coursedegree WHERE courseid = ?");
+            sqlStatement.setString(1, this.courseid);
+            
+            // Execute statement and get results
+            sqlStatement.executeUpdate();
+            
+            // Close the connection
+            sqlStatement.close();
+            dbCon.close();
+        }
+        catch (SQLException ex)
+        {
+            System.out.printf("[CourseDegree DAO - DELETE] Exception Occurred Executing SQL:\n%s", ex.getMessage());
+            return 0;
+        }
+        
+        return 1;
+    }
+    
+    public int delDegree()
+    {
+        // Invoke the connection
+        Connection dbCon;
+        try
+        {
+            dbCon = DriverManager.getConnection(DBInfo.jdbcConnectionString);
+            System.out.println("[CourseDegree DAO - DELETE] Database Connection Established.");
+            
+            // Prepare SQL statement
+            PreparedStatement sqlStatement = dbCon.prepareStatement("DELETE FROM coursedegree WHERE degree = ?");
+            sqlStatement.setString(1, this.degree);
+            
+            // Execute statement and get results
+            sqlStatement.executeUpdate();
+            
+            // Close the connection
+            sqlStatement.close();
+            dbCon.close();
+        }
+        catch (SQLException ex)
+        {
+            System.out.printf("[CourseDegree DAO - DELETE] Exception Occurred Executing SQL:\n%s", ex.getMessage());
+            return 0;
+        }
+        
+        return 1;
     }
     
     public int addRecord()

@@ -112,9 +112,13 @@ public class enroll {
     {   
         // Add all enrollment records to DB
         for (int i = 0; i<EnrollmentList.size(); i++)
-            EnrollmentList.get(i).addRecord();
+            if(EnrollmentList.get(i).addRecord() == 0)
+                return 0;
         
-        return 0;   
+        // Clear Enrollment
+        this.clearEnrollment();
+        
+        return 1;   
     }   
     
     // Helper method for JSP to not display coursedegree that is already in enrollmentlist
