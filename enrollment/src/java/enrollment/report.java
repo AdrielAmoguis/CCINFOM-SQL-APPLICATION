@@ -17,8 +17,8 @@ public class report {
     // coursecount attributes: course | nStudents
     // where-in course attributes = courseid | coursename | department
     ArrayList<coursecount> ccList;
-    int                term;
-    int                schoolyear;
+    int                    term;
+    int                    schoolyear;
     
     // Instantiate objects
     public report(){
