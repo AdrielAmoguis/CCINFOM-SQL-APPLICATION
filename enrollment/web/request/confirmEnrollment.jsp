@@ -9,8 +9,15 @@
 <%@page import="enrollment.enroll" %>
 
 <jsp:useBean id="enrollBean" class="enrollment.enroll" scope="session" />
+
         <%
             enrollBean.confirmEnrollment(); 
+
+            // Invalidate session (to reset the enrollBean)
+            if(session != null)
+            {
+                session.invalidate();
+            }
         %>
 <!DOCTYPE html>
 <html>

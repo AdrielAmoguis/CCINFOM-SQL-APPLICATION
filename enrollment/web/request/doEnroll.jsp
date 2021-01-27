@@ -75,77 +75,89 @@
                     if(!enrollBean.loggedin)
                         enrollBean.loginStudent(Integer.parseInt(request.getParameter("StudentID")), Integer.parseInt(request.getParameter("CurrentTerm")), Integer.parseInt(request.getParameter("SchoolYear")));
                     
-                    // Display user logged in
-                    %>
-                    <p>Welcome back, <strong><%=enrollBean.Student.completename%></strong>!</p>
-                    <%
-                    
-                    // Show the student his currently enrolled courses
-                    if(enrollBean.EnrollmentList.size() > 0)
+                    // Check if the student exists
+                    if(enrollBean.Student.completename != null)
                     {
+                    
+                        // Display user logged in
                         %>
-                        <h3>Your current enrollment cart</h3>
-                        <center>
-                        <table id="cartCourses" style="margin-bottom: 15px;">
-                            <tr><th>Course</th></tr>
+                        <p>Welcome back, <strong><%=enrollBean.Student.completename%></strong>!</p>
                         <%
-                        for(enrollment.enrollment em : enrollBean.EnrollmentList)
+
+                        // Show the student his currently enrolled courses
+                        if(enrollBean.EnrollmentList.size() > 0)
                         {
-                            courses cs = new courses();
-                            cs.courseid = em.courseid;
-                            cs.viewRecord();
                             %>
-                            <tr>
-                                <td><strong><%=em.courseid%></strong> - <%=cs.coursename%> <br/>(<%=cs.department%>)</td>
-                            </tr>
+                            <h3>Your current enrollment cart</h3>
+                            <center>
+                            <table id="cartCourses" style="margin-bottom: 15px;">
+                                <tr><th>Course</th></tr>
+                            <%
+                            for(enrollment.enrollment em : enrollBean.EnrollmentList)
+                            {
+                                courses cs = new courses();
+                                cs.courseid = em.courseid;
+                                cs.viewRecord();
+                                %>
+                                <tr>
+                                    <td><strong><%=em.courseid%></strong> - <%=cs.coursename%> <br/>(<%=cs.department%>)</td>
+                                </tr>
+                                <%
+                            }
+                            %>
+                            </table></center>
+                            <form id="regularForm" name="removeCourse" method ="POST" action="removeFromEnrollment.jsp">
+                                <center>Select CourseID to remove: <input name="removeCourseID" type="text"/><br /></center>
+                                <center><input type="submit" value="Remove Course"/></center>
+                            </form><br/>
+                            <form id="regularForm" name="ClearEnrollment" action="clearEnrollment.jsp" method="POST">
+                                <center><input type="submit" value="Clear Enrollment List"/></center>
+                            </form>
+                            <form id="regularForm" name="ConfirmEnrollment" action="confirmEnrollment.jsp" method="POST">
+                                <center><input type="submit" value="Confirm Enrollment"/></center>
+                            </form><br/>
                             <%
                         }
-                        %>
-                        </table></center>
-                        <form id="regularForm" name="removeCourse" method ="POST" action="removeFromEnrollment.jsp">
-                            <center>Select CourseID to remove: <input name="removeCourseID" type="text"/><br /></center>
-                            <center><input type="submit" value="Remove Course"/></center>
-                        </form><br/>
-                        <form id="regularForm" name="ClearEnrollment" action="clearEnrollment.jsp" method="POST">
-                            <center><input type="submit" value="Clear Enrollment List"/></center>
-                        </form>
-                        <form id="regularForm" name="ConfirmEnrollment" action="confirmEnrollment.jsp" method="POST">
-                            <center><input type="submit" value="Confirm Enrollment"/></center>
-                        </form><br/>
-                        <%
+                        else
+                        {
+                            %>
+                            <p>Your enrollment cart is empty.</p>
+                            <%
+                        }
+
+                        if(enrollBean.loadCourses() != 0)
+                        {
+
+                            %>
+                            <form id="regularForm" name="GetCourses" action="doEnroll.jsp" method="POST">
+                                Select a course to add to your enrollment list: <br />
+                                <select name="SelectedCourse" id="ChosenCourse">
+                                    <%
+                                      for(int i = 0; i < enrollBean.CourseList.size(); i++)
+                                      {
+                                          coursedegree cl = enrollBean.CourseList.get(i);
+                                          if(!enrollBean.isEnrolled(cl.courseid))
+                                          {%>
+                                           <option value="<%=cl.courseid%>"><%=cl.courseid%></option>
+                                          <%}
+                                      }
+                                    %>
+                                </select>
+                                <center><input type="submit" value="Add Course to Enrollment List" /></center>
+                            </form>
+                    <%  }
+                        else
+                        {
+                            %>
+                            <h3>There was an error in fetching student data.</h3>
+                            <%
+                        }
                     }
                     else
                     {
+                        // Student not found
                         %>
-                        <p>Your enrollment cart is empty.</p>
-                        <%
-                    }
-                    
-                    if(enrollBean.loadCourses() != 0)
-                    {
-                    
-                        %>
-                        <form id="regularForm" name="GetCourses" action="doEnroll.jsp" method="POST">
-                            Select a course to add to your enrollment list: <br />
-                            <select name="SelectedCourse" id="ChosenCourse">
-                                <%
-                                  for(int i = 0; i < enrollBean.CourseList.size(); i++)
-                                  {
-                                      coursedegree cl = enrollBean.CourseList.get(i);
-                                      if(!enrollBean.isEnrolled(cl.courseid))
-                                      {%>
-                                       <option value="<%=cl.courseid%>"><%=cl.courseid%></option>
-                                      <%}
-                                  }
-                                %>
-                            </select>
-                            <center><input type="submit" value="Add Course to Enrollment List" /></center>
-                        </form>
-                <%  }
-                    else
-                    {
-                        %>
-                        <h3>There was an error in fetching student data.</h3>
+                        <h3>Student not found.</h3>
                         <%
                     }
                 }

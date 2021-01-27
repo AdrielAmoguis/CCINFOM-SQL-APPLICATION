@@ -18,8 +18,8 @@
 - [In-Progress] Java Server Pages (JSP) Modules
 	- [Complete] Student Management Module
 	- [Complete] Course Management Module
-	- [In-Progress] Enroll Module
-	- [] Dropping Module
+	- [For Testing] Enroll Module
+	- [In-Progress] Dropping Module
 	- [] Report Module
 
 ### Basics of Git on Ubuntu:
