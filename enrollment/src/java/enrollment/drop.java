@@ -34,7 +34,7 @@ public class drop {
         this.loggedin = true;
         
         // Load the student's enrollment list
-        
+        loadEnrollment();
    
         return 1;
     }
