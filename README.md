@@ -11,16 +11,16 @@
 	- [Complete] Students
 	- [Complete] Courses
 	- [Complete] Degree
-	- [For Review] CourseDegree
-	- [For Review] Drop
-	- [For Review] Enrollment
-	- [For Review] Enroll
+	- [Complete] CourseDegree
+	- [Complete] Drop
+	- [Complete] Enrollment
+	- [Complete] Enroll
 - [In-Progress] Java Server Pages (JSP) Modules
 	- [Complete] Student Management Module
 	- [Complete] Course Management Module
-	- [For Testing] Enroll Module
-	- [In-Progress] Dropping Module
-	- [] Report Module
+	- [Complete] Enroll Module
+	- [Complete] Dropping Module
+	- [Complete] Report Module
 
 ### Basics of Git on Ubuntu:
 - Git installation:
