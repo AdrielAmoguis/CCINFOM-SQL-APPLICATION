@@ -9,8 +9,9 @@
 -->
 <!-- JSP Imports -->
 <%@page import="java.sql.*, java.util.*"%>
-<%@page import="enrollment.degree"%>
 <%@page import="enrollment.coursedegree"%>
+<%@page import="enrollment.degree"%>
+<%@page import="enrollment.courses"%> 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
@@ -48,64 +49,73 @@
         
         <!-- CONTENT -->
         <div id="content">
-            <h2>Delete Degree Record</h2>
+            <h2>Unlink Course Record</h2>
             
             <!-- Instantiate Bean -->
+            <jsp:useBean id="getCourseBean" class="enrollment.courses" scope="request" />
             <jsp:useBean id="getDegreeBean" class="enrollment.degree" scope="request" />
-            <jsp:useBean id="delDegreeBean" class="enrollment.degree" scope="request" />
+            
             <%
-                getDegreeBean.degreeid = request.getParameter("DegreeID");
-                if(getDegreeBean.degreeid != null && !getDegreeBean.degreeid.isEmpty())
+                // Get request to course and degree beans
+                try
                 {
-                     // Load data
-                    if(getDegreeBean.viewRecord() != 0)
+                    // Initialize Data
+                    getCourseBean.courseid = request.getParameter("CourseID");
+                    getDegreeBean.degreeid = request.getParameter("DegreeID");
+                    
+                    if(getCourseBean.viewRecord() != 0 && getDegreeBean.viewRecord() != 0)
                     {
-                        // Success
-                        // If exists
-                        if(getDegreeBean.degreename != null)
+                        // Check if course or degree exists
+                        if(getCourseBean.coursename != null && !getCourseBean.coursename.isEmpty())
                         {
-                            // Execute Deletion
-                            delDegreeBean.degreeid = getDegreeBean.degreeid;
-                            
-                            if(delDegreeBean.delRecord() != 0)
+                            if(getDegreeBean.degreename != null && !getDegreeBean.degreename.isEmpty())
                             {
-                                // Success
-                                %>
-                                    <h3>Degree record has been successfully removed.</h3>
-                                <%
+                                // Proceed with link
+                                coursedegree linkBean = new coursedegree();
+                                linkBean.courseid = getCourseBean.courseid;
+                                linkBean.degree = getDegreeBean.degreeid;
+                                if(linkBean.delRecord() != 0)
+                                {
+                                    %>
+                                    <h3>Unlink successful.</h3>
+                                    <%
+                                }
+                                else
+                                {
+                                    %>
+                                    <h3>There was a problem breaking the link. Please try again.</h3>
+                                    <%
+                                }
                             }
                             else
                             {
-                                // Failure
                                 %>
-                                    <h3>An error has occurred. Unable to delete degree data.</h3>
+                                <h3>The specified degree does not exist. Please try again.</h3>
                                 <%
                             }
                         }
                         else
                         {
-                            // Record notfound
                             %>
-                                <h3>The requested record cannot be found.</h3>
+                            <h3>The specified course does not exist. Please try again.</h3>
                             <%
                         }
                     }
                     else
                     {
-                        // Failure
                         %>
-                            <h3>An error has occurred. Unable to fetch degree data.</h3>
+                        <h3>An error occurred while fetching course or degree data. Please try again.</h3>
                         <%
                     }
                 }
-                else
+                catch(Exception ex)
                 {
+                    // Failure
                     %>
-                    <h3>The field you submitted was empty. Please try again.</h3>
+                    <h3>One or more of your inputs were invalid. Please try again.</h3>
                     <%
                 }
             %>
-                
             
             <br />
             
