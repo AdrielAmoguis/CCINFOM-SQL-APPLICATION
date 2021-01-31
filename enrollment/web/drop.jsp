@@ -9,12 +9,12 @@
 -->
 <!-- JSP Imports -->
 <%@page import="java.sql.*, java.util.*" %>
-<%@page import="enrollment.enroll" %>
+<%@page import="enrollment.drop" %>
 
 <%
     // Redirect user if session already exists
-    if(session.getAttribute("enrollStatus") != null)
-        response.sendRedirect("request/doEnroll.jsp");
+    if(session.getAttribute("dropStatus") != null)
+        response.sendRedirect("request/doDrop.jsp");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -43,8 +43,8 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="studentmaintenance.jsp">Student Management</a></li>
                     <li><a href="coursemaintenance.jsp">Course Management</a></li>
-                    <li class="navSelected"><a href="#">Enroll</a></li>
-                    <li><a href="drop.jsp">Drop</a></li>
+                    <li><a href="enroll.jsp">Enroll</a></li>
+                    <li class="navSelected"><a href="drop.jsp">Drop</a></li>
                     <li><a href="report.jsp">Report</a></li>
                 </ul>
             </div>
@@ -55,16 +55,16 @@
             <h2>Enrollment</h2>
             
             <p style="text-align: center;">
-                This module facilitates student enrollment.
+                This module facilitates course dropping for enrolled students.
             </p>
             
             <hr />
-            <h3>Enroll</h3>
-            <form id="regularForm" name="EnrollmentDetails" action="request/doEnroll.jsp" method="POST">
+            <h3>Drop Courses</h3>
+            <form id="regularForm" name="DropDetails" action="request/doDrop.jsp" method="POST">
                 Student ID: <input name="StudentID" type="text" />
                 Current Term: <input name="CurrentTerm" type="text" />
                 Current School Year: <input name="SchoolYear" type="text" /><br />
-                <center><input type="submit" value="Submit Enrollment Details"/></center>
+                <center><input type="submit" value="Submit Student Details"/></center>
             </form>
             
             <hr />

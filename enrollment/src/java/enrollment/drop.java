@@ -57,8 +57,8 @@ public class drop {
             // Obtain all enrollment records with studentid, term, schoolyear         
             PreparedStatement sqlStatement = dbCon.prepareCall("SELECT studentid, courseid, term, schoolyear " +
                                                                "FROM enrollment " +
-                                                               "WHERE studentid = ?, " +
-                                                               "AND   term = ?, " +
+                                                               "WHERE studentid = ? " +
+                                                               "AND   term = ? " +
                                                                "AND   schoolyear = ?");
                                                                                  
             sqlStatement.setInt(1, this.Student.studentid);
@@ -115,6 +115,12 @@ public class drop {
             DropList.get(i).delRecord();
         
         return 0;   
-    }   
+    }
+    
+    // Checks if the mentioned course is in the student's drop cart
+    public boolean willDrop(enrollment em)
+    {
+        return this.DropList.contains(em);
+    }
     
 }

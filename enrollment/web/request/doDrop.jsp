@@ -12,6 +12,7 @@
 <%@page import="enrollment.coursedegree" %>
 <%@page import="enrollment.enroll" %>
 <%@page import="enrollment.courses" %>
+<%@page import="enrollment.drop" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
@@ -39,8 +40,8 @@
                     <li><a href="../index.html">Home</a></li>
                     <li><a href="../studentmaintenance.jsp">Student Management</a></li>
                     <li><a href="../coursemaintenance.jsp">Course Management</a></li>
-                    <li class="navSelected"><a href="../enroll.jsp">Enroll</a></li>
-                    <li><a href="../drop.jsp">Drop</a></li>
+                    <li><a href="../enroll.jsp">Enroll</a></li>
+                    <li class="navSelected"><a href="../drop.jsp">Drop</a></li>
                     <li><a href="../report.jsp">Report</a></li>
                 </ul>
             </div>
@@ -48,55 +49,55 @@
         
         <!-- CONTENT -->
         <div id="content">
-            <h2>Enrollment</h2>
+            <h2>Drop</h2>
             
             <p style="text-align: center;">
-                This module facilitates student enrollment.
+                This module facilitates the dropping of courses.
             </p>
            
             <hr />
             <!-- Load student data -->
-            <jsp:useBean id="enrollBean" class="enrollment.enroll" scope="session" />
+            <jsp:useBean id="dropBean" class="enrollment.drop" scope="session" />
             <%
                 if(request.getParameter("SelectedCourse") != null && !request.getParameter("SelectedCourse").isEmpty())
                 {
                     enrollment.enrollment em = new enrollment.enrollment();
-                    em.studentid = enrollBean.Student.studentid;
+                    em.studentid = dropBean.Student.studentid;
                     em.courseid = request.getParameter("SelectedCourse");
-                    em.term = enrollBean.cur_term;
-                    em.schoolyear = enrollBean.sYear;
+                    em.term = dropBean.cur_term;
+                    em.schoolyear = dropBean.sYear;
                     em.viewRecord();
                     
-                    if(!enrollBean.isEnrolled(em.courseid))
-                        enrollBean.EnrollmentList.add(em);
+                    if(!dropBean.willDrop(em))
+                        dropBean.DropList.add(em);
                 }
                 try
                 {
-                    if(!enrollBean.loggedin)
-                        enrollBean.loginStudent(Integer.parseInt(request.getParameter("StudentID")), Integer.parseInt(request.getParameter("CurrentTerm")), Integer.parseInt(request.getParameter("SchoolYear")));
+                    if(!dropBean.loggedin)
+                        dropBean.loginStudent(Integer.parseInt(request.getParameter("StudentID")), Integer.parseInt(request.getParameter("CurrentTerm")), Integer.parseInt(request.getParameter("SchoolYear")));
                     
                     // Check if the student exists
-                    if(enrollBean.Student.completename != null)
+                    if(dropBean.Student.completename != null)
                     {
                     
                         // Display user logged in
                         %>
-                        <p>Welcome back, <strong><%=enrollBean.Student.completename%></strong>!</p>
+                        <p>Welcome back, <strong><%=dropBean.Student.completename%></strong>!</p>
                         <%
                             
                          // Initialize Session
-                         session.setAttribute("enrollStatus", new String());
+                         session.setAttribute("dropStatus", new String());
 
                         // Show the student his currently enrolled courses
-                        if(enrollBean.EnrollmentList.size() > 0)
+                        if(dropBean.DropList.size() > 0)
                         {
                             %>
-                            <h3>Your current enrollment cart</h3>
+                            <h3>Your current drop cart</h3>
                             <center>
                             <table id="cartCourses" style="margin-bottom: 15px;">
                                 <tr><th>Course</th></tr>
                             <%
-                            for(enrollment.enrollment em : enrollBean.EnrollmentList)
+                            for(enrollment.enrollment em : dropBean.DropList)
                             {
                                 courses cs = new courses();
                                 cs.courseid = em.courseid;
@@ -109,46 +110,47 @@
                             }
                             %>
                             </table></center>
-                            <form id="regularForm" name="removeCourse" method ="POST" action="removeFromEnrollment.jsp">
+                            <form id="regularForm" name="removeCourse" method ="POST" action="removeFromDrop.jsp">
                                 <center>Select CourseID to remove: <input name="removeCourseID" type="text"/><br /></center>
                                 <center><input type="submit" value="Remove Course"/></center>
                             </form><br/>
-                            <form id="regularForm" name="ClearEnrollment" action="clearEnrollment.jsp" method="POST">
-                                <center><input type="submit" value="Clear Enrollment List"/></center>
+                            <form id="regularForm" name="ClearEnrollment" action="clearDrop.jsp" method="POST">
+                                <center><input type="submit" value="Clear Drop List"/></center>
                             </form>
-                            <form id="regularForm" name="ConfirmEnrollment" action="confirmEnrollment.jsp" method="POST">
-                                <center><input type="submit" value="Confirm Enrollment"/></center>
+                            <form id="regularForm" name="ConfirmEnrollment" action="confirmDrop.jsp" method="POST">
+                                <center><input type="submit" value="Confirm Dropping"/></center>
                             </form><br/>
                             <%
                         }
                         else
                         {
                             %>
-                            <p>Your enrollment cart is empty.</p>
+                            <p>Your dropping cart is empty.</p>
                             <%
                         }
 
-                        if(enrollBean.loadCourses() != 0)
+                        if(dropBean.loadEnrollment() != 0)
                         {
 
                             %>
-                            <form id="regularForm" name="GetCourses" action="doEnroll.jsp" method="POST">
-                                Select a course to add to your enrollment list: <br />
+                            <form id="regularForm" name="GetCourses" action="doDrop.jsp" method="POST">
+                                Select a course to add to your drop list: <br />
                                 <select name="SelectedCourse" id="ChosenCourse">
                                     <%
-                                      for(int i = 0; i < enrollBean.CourseList.size(); i++)
+                                      for(int i = 0; i < dropBean.EnrollmentList.size(); i++)
                                       {
-                                          coursedegree cl = enrollBean.CourseList.get(i);
-                                          if(!enrollBean.isEnrolled(cl.courseid))
+                                          enrollment.enrollment em = dropBean.EnrollmentList.get(i);
+                                          if(!dropBean.willDrop(em))
                                           {%>
-                                           <option value="<%=cl.courseid%>"><%=cl.courseid%></option>
+                                           <option value="<%=em.courseid%>"><%=em.courseid%></option>
                                           <%}
                                       }
                                     %>
                                 </select>
-                                <center><input type="submit" value="Add Course to Enrollment List" /></center>
+                                <center><input type="submit" value="Add Course to Drop List" /></center>
                             </form>
-                                <br />
+                                
+                            <br />
                                 <form id="logout" name="Logout" action="logout.jsp" method="POST">
                                     <center><input type="submit" value="Logout"/></center>
                                 </form>

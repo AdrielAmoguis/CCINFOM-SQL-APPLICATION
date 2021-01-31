@@ -6,15 +6,15 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="enrollment.coursedegree" %>
-<%@page import="enrollment.enroll" %>
+<%@page import="enrollment.drop" %>
 
-<jsp:useBean id="enrollBean" class="enrollment.enroll" scope="session" />
+<jsp:useBean id="dropBean" class="enrollment.drop" scope="session" />
 
         <%
-            enrollBean.confirmEnrollment(); 
+            dropBean.confirmDrop(); 
 
             // Invalidate session (to reset the enrollBean)
-            session.removeAttribute("enrollStatus");
+            session.removeAttribute("dropStatus");
             session.invalidate();
         %>
 <!DOCTYPE html>
@@ -44,8 +44,8 @@
                     <li><a href="../index.html">Home</a></li>
                     <li><a href="../studentmaintenance.jsp">Student Management</a></li>
                     <li><a href="../coursemaintenance.jsp">Course Management</a></li>
-                    <li class="navSelected"><a href="../enroll.jsp">Enroll</a></li>
-                    <li><a href="../drop.jsp">Drop</a></li>
+                    <li><a href="../enroll.jsp">Enroll</a></li>
+                    <li class="navSelected"><a href="../drop.jsp">Drop</a></li>
                     <li><a href="../report.jsp">Report</a></li>
                 </ul>
             </div>
@@ -53,14 +53,14 @@
         
         <!-- CONTENT -->
         <div id="content">
-            <h2>Enrollment</h2>
+            <h2>Drop</h2>
             
             <p style="text-align: center;">
-                This module facilitates student enrollment.
+                This module facilitates student dropping.
             </p>
             
             <hr />
-            <h3>Your enrollment has been confirmed.</h3>
+            <h3>The selected courses have been dropped.</h3>
             <p>You will be redirected to the home page in 5 seconds.</p>
             
             <hr />

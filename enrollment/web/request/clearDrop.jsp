@@ -6,19 +6,19 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="enrollment.coursedegree" %>
-<%@page import="enrollment.enroll" %>
+<%@page import="enrollment.drop" %>
 
-<jsp:useBean id="enrollBean" class="enrollment.enroll" scope="session" />
+<jsp:useBean id="dropBean" class="enrollment.drop" scope="session" />
         <%
-            enrollBean.clearEnrollment();
-            session.removeAttribute("enrollStatus");
+            dropBean.clearDrop(); 
+            session.removeAttribute("dropStatus");
             session.invalidate();
         %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="refresh" content="0; URL=../enroll.jsp" />
+        <meta http-equiv="refresh" content="0; URL=drop.jsp" />
         <title>JSP Page</title>
     </head>
     <body>
