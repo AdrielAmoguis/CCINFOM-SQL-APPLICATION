@@ -9,7 +9,7 @@
 -->
 <!-- JSP Imports -->
 <%@page import="java.sql.*, java.util.*"%>
-<%@page import="enrollment.students"%>
+<%@page import="enrollment.degree"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
@@ -37,7 +37,7 @@
                     <li><a href="../index.html">Home</a></li>
                     <li><a href="../studentmaintenance.jsp">Student Management</a></li>
                     <li><a href="../coursemaintenance.jsp">Course Management</a></li>
-                    <li><a href="degreemaintenance.jsp">Degrees Management</a></li>
+                    <li><a href="../degreemaintenance.jsp">Degrees Management</a></li>
                     <li><a href="../enroll.jsp">Enroll</a></li>
                     <li><a href="../drop.jsp">Drop</a></li>
                     <li><a href="../report.jsp">Report</a></li>
@@ -47,59 +47,46 @@
         
         <!-- CONTENT -->
         <div id="content">
-            <h2>Get Student Information</h2>
+            <h2>Add Degree Record</h2>
             
             <!-- Instantiate Bean -->
-            <jsp:useBean id="getStudentBean" class="enrollment.students" scope="request" />
+            <jsp:useBean id="addDegreeBean" class="enrollment.degree" scope="request" />
             <%
-              boolean valid = false;
-              try
-              {
-                  getStudentBean.studentid = Integer.parseInt(request.getParameter("StudentID"));
-                  valid = true;
-              }
-              catch(Exception ex)
-              {
-                  System.out.println(ex.getMessage());
-              }
+              // Initialize Values from HTTP Request
+              addDegreeBean.degreeid = request.getParameter("DegreeID");
+              addDegreeBean.degreename = request.getParameter("DegreeName");
               
-              if(valid)
+              // Check for null values
+              if(addDegreeBean.degreeid.isEmpty() || addDegreeBean.degreename.isEmpty())
               {
-                  // Do query
-                  if(getStudentBean.viewRecord() != 0)
-                  {
-                      // Success
-                      if(getStudentBean.completename != null && !getStudentBean.completename.isEmpty())
-                      {
-                      %>
-                      <h3>Student Information:</h3>
-                      <p><strong>Student ID:</strong> <%=getStudentBean.studentid%>
-                      <p><strong>Student Name:</strong> <%=getStudentBean.completename%>
-                      <p><strong>Student Degree ID: </strong> <%=getStudentBean.degreeid%>
-                      <%
-                      }
-                      else
-                      {
-                        %>
-                        <h3>Student Record Not Found.</h3>
-                        <%
-                      }
-                  }
-                  else
-                  {
-                      // Failure
-                      %>
-                      <h3>An error has occurred. Please try again.</h3>
-                      <%
-                  }
+                  // Reject Requests
+                  %>
+                    <h3>One or more fields you have entered were empty. Please try again.</h3>
+                  <%
               }
               else
               {
-                %>
-                <h3>Your input is invalid. Please try again.</h3>
-                <%
+                // Good Request - carry on
+                // Execute Query
+                if(addDegreeBean.addRecord() != 0)
+                {
+                    // Successful
+                    %>
+                    <h3>Inserted Degree Data:</h3>
+                    <p><strong>Degree ID:</strong> <%=addDegreeBean.degreeid%></p>
+                    <p><strong>Degree Name:</strong> <%=addDegreeBean.degreename%></p>
+                    <%
+                }
+                else
+                {
+                    // Query Failure
+                    %>
+                    <h3>An error has occurred. New degree record has not been added.</h3>
+                    <%
+                }
               }
             %>
+                
             
             <br />
             

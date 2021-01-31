@@ -47,54 +47,50 @@
         
         <!-- CONTENT -->
         <div id="content">
-            <h2>Update Course Information</h2>
+            <h2>Update Degree Information</h2>
             
             <!-- Instantiate Bean -->
-            <jsp:useBean id="getCourseBean" class="enrollment.courses" scope="request" />
-            <jsp:useBean id="modCourseBean" class="enrollment.courses" scope="request" />
+            <jsp:useBean id="getDegreeBean" class="enrollment.degree" scope="request" />
+            <jsp:useBean id="modDegreeBean" class="enrollment.degree" scope="request" />
             <%
-                getCourseBean.courseid = request.getParameter("CourseID");
-                if(getCourseBean.courseid != null && !getCourseBean.courseid.isEmpty())
+                getDegreeBean.degreeid = request.getParameter("DegreeID");
+                if(getDegreeBean.degreeid != null && !getDegreeBean.degreeid.isEmpty())
                 {
                      // Load data
-                    if(getCourseBean.viewRecord() != 0)
+                    if(getDegreeBean.viewRecord() != 0)
                     {
                         // Success
                         // If exists
-                        if(getCourseBean.coursename != null)
+                        if(getDegreeBean.degreename != null)
                         {
                             %>
-                                <h3>Old Course Data:</h3>
-                                <p><strong>Course ID:</strong> <%=getCourseBean.courseid%></p>
-                                <p><strong>Course Name:</strong> <%=getCourseBean.coursename%></p>
-                                <p><strong>Course Department:</strong> <%=getCourseBean.department%></p>
+                                <h3>Old Degree Data:</h3>
+                                <p><strong>Degree ID:</strong> <%=getDegreeBean.degreeid%></p>
+                                <p><strong>Degree Name:</strong> <%=getDegreeBean.degreename%></p>
                                 <hr />
                             <%
                                 
                             // Execute the update
-                            modCourseBean.courseid = getCourseBean.courseid;
-                            modCourseBean.coursename = request.getParameter("CourseNewName");
-                            modCourseBean.department = request.getParameter("CourseNewDepartment");
+                            modDegreeBean.degreeid = getDegreeBean.degreeid;
+                            modDegreeBean.degreename = request.getParameter("NewDegreeName");
                             
-                            if(modCourseBean.coursename.isEmpty()) modCourseBean.coursename = getCourseBean.coursename;
-                            if(modCourseBean.department.isEmpty()) modCourseBean.department = getCourseBean.department;
+                            if(modDegreeBean.degreename.isEmpty()) modDegreeBean.degreename = getDegreeBean.degreename;
                             
-                            if(modCourseBean.modRecord() != 0)
+                            if(modDegreeBean.modRecord() != 0)
                             {
                                 // Success
                                 %>
-                                <h3>Course Data Updated!</h3>
-                                <h3>Updated Course Data:</h3>
-                                <p><strong>Course ID:</strong> <%=modCourseBean.courseid%></p>
-                                <p><strong>Course Name:</strong> <%=modCourseBean.coursename%></p>
-                                <p><strong>Course Department:</strong> <%=modCourseBean.department%></p>
+                                <h3>Degree Data Updated!</h3>
+                                <h3>Updated Degree Data:</h3>
+                                <p><strong>Degree ID:</strong> <%=modDegreeBean.degreeid%></p>
+                                <p><strong>Degree Name:</strong> <%=modDegreeBean.degreename%></p>
                                 <%
                             }
                             else
                             {
                                 // Failure
                                 %>
-                                <h3>An error has occurred. Unable to update course data.</h3>
+                                <h3>An error has occurred. Unable to update degree data.</h3>
                                 <%
                             }
                             
@@ -111,7 +107,7 @@
                     {
                         // Failure
                         %>
-                            <h3>An error has occurred. Unable to fetch course data.</h3>
+                            <h3>An error has occurred. Unable to fetch degree data.</h3>
                         <%
                     }
                 }

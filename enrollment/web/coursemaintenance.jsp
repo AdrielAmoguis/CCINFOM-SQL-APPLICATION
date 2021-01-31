@@ -37,6 +37,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="studentmaintenance.jsp">Student Management</a></li>
                     <li class="navSelected"><a href="#">Course Management</a></li>
+                    <li><a href="degreemaintenance.jsp">Degree Management</a></li>
                     <li><a href="enroll.jsp">Enroll</a></li>
                     <li><a href="drop.jsp">Drop</a></li>
                     <li><a href="report.jsp">Report</a></li>
