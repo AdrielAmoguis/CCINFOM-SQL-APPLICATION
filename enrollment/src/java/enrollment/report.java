@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class report {
     // coursecount attributes: course | nStudents
     // where-in course attributes = courseid | coursename | department
-    ArrayList<coursecount> ccList;
+    public ArrayList<coursecount> ccList;
     int                    term;
     int                    schoolyear;
     

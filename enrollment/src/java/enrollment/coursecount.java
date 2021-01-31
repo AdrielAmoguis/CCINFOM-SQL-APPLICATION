@@ -11,8 +11,8 @@ package enrollment;
  * @author SUN, Benedict
  */
 public class coursecount {
-    courses course;
-    int    nStudents;
+    public courses course;
+    public int    nStudents;
     
     public coursecount(){
         course = new courses();
