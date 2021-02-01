@@ -37,8 +37,8 @@ public class students {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/enrolldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection Successful");
             // 4. Prepare our INSERT Statement
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE students          " +
-                                                            "SET    degreeid   = ? " +
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE students " +
+                                                            "SET    degreeid   = ?," +
                                                             "       completename = ? " +
                                                             "WHERE  studentid = ? ");
             // 5. Supply the statement with values
