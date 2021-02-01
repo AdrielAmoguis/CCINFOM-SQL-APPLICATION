@@ -38,7 +38,8 @@ public class students {
             System.out.println("Connection Successful");
             // 4. Prepare our INSERT Statement
             PreparedStatement pstmt = conn.prepareStatement("UPDATE students          " +
-                                                            "SET    degreeid   = ? " + 
+                                                            "SET    degreeid   = ? " +
+                                                            "       completename = ? " +
                                                             "WHERE  studentid = ? ");
             // 5. Supply the statement with values
             pstmt.setString (1, degreeid );
