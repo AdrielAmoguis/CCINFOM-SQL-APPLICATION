@@ -83,6 +83,8 @@
                         // Display user logged in
                         %>
                         <p>Welcome back, <strong><%=enrollBean.Student.completename%></strong>!</p>
+                        <p>ID Number: <strong><%=enrollBean.Student.studentid%></strong></p>
+                        <p>Degree Program: <strong><%=enrollBean.Student.degreeid%></strong></p>
                         <%
                             
                          // Initialize Session

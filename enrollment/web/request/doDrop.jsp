@@ -84,6 +84,8 @@
                         // Display user logged in
                         %>
                         <p>Welcome back, <strong><%=dropBean.Student.completename%></strong>!</p>
+                        <p>ID Number: <strong><%=dropBean.Student.studentid%></strong></p>
+                        <p>Degree Program: <strong><%=dropBean.Student.degreeid%></strong></p>
                         <%
                             
                          // Initialize Session
