@@ -43,7 +43,8 @@ public class students {
                                                             "WHERE  studentid = ? ");
             // 5. Supply the statement with values
             pstmt.setString (1, degreeid );
-            pstmt.setInt    (2, studentid);
+            pstmt.setString (2, completename);
+            pstmt.setInt    (3, studentid);
             pstmt.executeUpdate();   
             pstmt.close();
             conn.close();
