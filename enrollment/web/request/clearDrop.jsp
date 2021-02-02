@@ -11,8 +11,6 @@
 <jsp:useBean id="dropBean" class="enrollment.drop" scope="session" />
         <%
             dropBean.clearDrop(); 
-            session.removeAttribute("dropStatus");
-            session.invalidate();
         %>
 <!DOCTYPE html>
 <html>

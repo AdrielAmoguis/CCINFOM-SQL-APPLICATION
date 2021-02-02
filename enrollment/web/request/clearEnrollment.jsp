@@ -11,8 +11,6 @@
 <jsp:useBean id="enrollBean" class="enrollment.enroll" scope="session" />
         <%
             enrollBean.clearEnrollment();
-            session.removeAttribute("enrollStatus");
-            session.invalidate();
         %>
 <!DOCTYPE html>
 <html>
